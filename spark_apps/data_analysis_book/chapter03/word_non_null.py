@@ -21,4 +21,5 @@ results = words_nonull.groupby(F.col("word")).count()
 
 results.orderBy(F.col("count").desc()).show(10)
 
-results.coalesce(1).write.csv("/opt/spark/data/results/chapter03/simple_count.csv")
+#results.coalesce(1).write.csv("/opt/spark/data/results/chapter03/simple_count.csv")
+results.coalesce(1).write.csv("/opt/spark/data/results/chapter03/simple_count.csv", mode="overwrite")
