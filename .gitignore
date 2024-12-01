@@ -15,3 +15,6 @@ book_data/shows
 /docker-compose.generated.yml
 /yarn-generated/
 /book_data/backblaze_data/
+
+#Ed Adds
+**/vpython3.12

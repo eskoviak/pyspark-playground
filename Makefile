@@ -55,3 +55,10 @@ submit-yarn-cluster:
 
 rm-results:
 	rm -r book_data/results/*
+
+
+## Ed's Additions
+
+
+fitness:
+	cp '/Users/edmundlskoviak/iCloud/Data Sets/Fitness.xlsx' ./book_data/Fitness.xlsx
