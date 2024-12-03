@@ -59,6 +59,5 @@ rm-results:
 
 ## Ed's Additions
 
-
 fitness:
 	cp '/Users/edmundlskoviak/iCloud/Data Sets/Fitness.xlsx' ./book_data/Fitness.xlsx
