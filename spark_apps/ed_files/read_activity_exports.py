@@ -4,10 +4,10 @@ import re
 from os import path, listdir
 
 # get or create a spark context
-spark = SparkSession.builder.appName("ed_files/read_exports.py").getOrCreate()
+spark = SparkSession.builder.appName("ed_files/read_activity_exports.py").getOrCreate()
 
 output_base = '/opt/spark/data/sparkOutput'
-data_file_base = '/opt/spark/data/HealthAll_2024-12-345_14-58-25_SimpleHealthExportCSV/'
+data_file_base = '/opt/spark/data/HealthAll_2024-12-345_14-58-25_SimpleHealthExportCSV'
 activity_base = r'^HKWorkoutActivityType'
 activities = [
     'Cycling',
@@ -21,10 +21,11 @@ activities = [
     'Other',
     'PaddleSports',
     'Running',
-    'Snowsports',
+    'SnowSports',
     'Snowboarding',
 #    'Swimming',
     'WaterSports',
+    'Walking',
 ]
 first = True
 
@@ -36,10 +37,10 @@ for activity in activities:
         activity_df = spark.read.csv(path.join(data_file_base,csv_file[0]), header=True)
         first = False
     else:
-        activity_df = activity_df.union(spark.read.csv(path.join(data_file_base,csv_file[0]), header=True))
+        activity_df = activity_df.unionByName(spark.read.csv(path.join(data_file_base,csv_file[0]), header=True), allowMissingColumns=True)
 
     
-activity_df.write.parquet(path.join(output_base, 'activity'))
+activity_df.write.parquet(path.join(output_base, 'activity'), mode='overwrite')
         
     
 
