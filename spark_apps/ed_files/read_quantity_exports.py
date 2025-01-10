@@ -11,6 +11,7 @@ data_file_base = '/opt/spark/data/HealthAll_2024-12-345_14-58-25_SimpleHealthExp
 quantity_base = r'^HKQuantityTypeIdentifier'
 quantities = [
     'ActiveEnergyBurned',
+    'BasalEnergyBurned'
     ]
 
 for quantity in quantities:
@@ -18,5 +19,4 @@ for quantity in quantities:
     spec = re.compile(quantity_base + quantity)
     csv_file = [f for f in listdir(data_file_base) if path.isfile(path.join(data_file_base, f)) and f.split('.')[1] == 'csv' and spec.match(f)]
     quantity_df = spark.read.csv(path.join(data_file_base,csv_file[0]), header=True)
-    
-quantity_df.write.parquet(path.join(output_base, 'quantity'), mode='overwrite')
+    quantity_df.write.parquet(path.join(output_base, quantity), mode='overwrite')
